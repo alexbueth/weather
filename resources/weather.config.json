@@ -1,0 +1,63 @@
+{
+    "elements" : [{
+        "data": "data",
+        "id": "{locationId}",
+        "class": "city-screen",
+        "type": "div",
+        "elements": [{
+            "type": "div",
+            "class": "col-20 fadein1 turn1",
+            "elements": [
+                {"type": "div","class": "day","content": "{day}", "data": "data.forecast[0]"},
+                {"type": "div","class": "date","content": "{date}", "data": "data.forecast[0]"},
+                {"type": "img","class": "sign","src": "resources/weathericon/{code}.png", "data": "data.forecast[0]"},
+                {"type": "div","class": "temp","content": "max {high}°C", "data": "data.forecast[0]"},
+                {"type": "div","class": "temp","content": "min&nbsp; {low}°C", "data": "data.forecast[0]"}
+            ]
+        },
+        {
+            "type": "div",
+            "class": "col-20 fadein2 turn2",
+            "elements": [
+                {"type": "div","class": "day","content": "{day}", "data": "data.forecast[1]"},
+                {"type": "div","class": "date","content": "{date}", "data": "data.forecast[1]"},
+                {"type": "img","class": "sign","src": "resources/weathericon/{code}.png", "data": "data.forecast[1]"},
+                {"type": "div","class": "temp","content": "max {high}°C", "data": "data.forecast[1]"},
+                {"type": "div","class": "temp","content": "min&nbsp; {low}°C", "data": "data.forecast[1]"}
+            ]
+        },
+        {
+            "type": "div",
+            "class": "col-20 fadein3 turn3",
+            "elements": [
+                {"type": "div","class": "day","content": "{day}", "data": "data.forecast[2]"},
+                {"type": "div","class": "date","content": "{date}", "data": "data.forecast[2]"},
+                {"type": "img","class": "sign","src": "resources/weathericon/{code}.png", "data": "data.forecast[2]"},
+                {"type": "div","class": "temp","content": "max {high}°C", "data": "data.forecast[2]"},
+                {"type": "div","class": "temp","content": "min&nbsp; {low}°C", "data": "data.forecast[2]"}
+            ]
+        },
+        {
+            "type": "div",
+            "class": "col-20 fadein4 turn4",
+            "elements": [
+                {"type": "div","class": "day","content": "{day}", "data": "data.forecast[3]"},
+                {"type": "div","class": "date","content": "{date}", "data": "data.forecast[3]"},
+                {"type": "img","class": "sign","src": "resources/weathericon/{code}.png", "data": "data.forecast[3]"},
+                {"type": "div","class": "temp","content": "max {high}°C", "data": "data.forecast[3]"},
+                {"type": "div","class": "temp","content": "min&nbsp; {low}°C", "data": "data.forecast[3]"}
+            ]
+        },
+        {
+            "type": "div",
+            "class": "col-20 fadein5 turn5",
+            "elements": [
+                {"type": "div","class": "day","content": "{day}", "data": "data.forecast[4]"},
+                {"type": "div","class": "date","content": "{date}", "data": "data.forecast[4]"},
+                {"type": "img","class": "sign","src": "resources/weathericon/{code}.png", "data": "data.forecast[4]"},
+                {"type": "div","class": "temp","content": "max {high}°C", "data": "data.forecast[4]"},
+                {"type": "div","class": "temp","content": "min&nbsp; {low}°C", "data": "data.forecast[4]"}
+            ]
+        }]
+    }]
+}
