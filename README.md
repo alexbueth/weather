@@ -1,4 +1,5 @@
 Sehr geehrte Damen und Herren,
+
 vielen Dank für die Zusendung des Eignungstests, dessen Ergebnis ich Ihnen gern präsentiere.
 
 Üblicherweise arbeite ich mit dem Framework jQuery, empfand es jedoch als eine spannende Herausforderung darauf zu verzichten und ausschließlich JavaScript zu verwenden. 
