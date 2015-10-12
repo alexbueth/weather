@@ -10,6 +10,9 @@ Zusätzlich zum Zurück- und Weiter-Menü habe ich ein Dropdown-Menü generiert,
 
 Auch kleine Displays werden durch das responsive Design unterstützt.
 
+Da aufgrund von x-site scripting, diese Anwendung nicht lokal gestartet werden kann, habe ich eine Version auf meinem Server.
+Diese finden Sie hier:  http://bueth-software.com/weather/
+
 Ich hoffe, ich konnte sie Überzeugen und freue mich, von Ihnen zu hören.
 
 Mit freundlichen Grüßen
