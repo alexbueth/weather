@@ -5,7 +5,7 @@ vielen Dank für die Zusendung des Eignungstests, dessen Ergebnis ich Ihnen gern
 
 Da es freigestellt wurde, ein eigenes Design zu verwenden, habe ich mich für ein dynamisches Design entschieden, welches nur grafisch durch Google komplettiert wird. Dazu habe ich anhand des Landes und der Stadt einen searchquery an deren Bildersuche gesendet und das Bild mit der höchsten Auflösung als Hintergrundbild verwendet.
 
-Zusätzlich zum <zurück und weiter> Menü habe ich ein Dropdown-Menü generiert, welches den Sprung auch direkt zur gewünschten Destination ermöglicht.
+Zusätzlich zum Zurück und Weiter Menü habe ich ein Dropdown-Menü generiert, welches den Sprung auch direkt zur gewünschten Destination ermöglicht.
 
 Auch kleine Displays werden durch das responsive Design unterstützt.
 
