@@ -12,4 +12,5 @@ Auch kleine Displays werden durch das responsive Design unterstützt.
 Ich hoffe, ich konnte sie Überzeugen und freue mich, von Ihnen zu hören.
 
 Mit freundlichen Grüßen
+
 Alexander Bueth
