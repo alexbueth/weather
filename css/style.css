@@ -43,7 +43,7 @@ div{
 	height:50px;
 	overflow:hidden;
 }
-#openWrapper{
+#dropWrapper{
 	position:relative;
 	height:200px;
 	margin: 0px auto 20px auto;
@@ -96,7 +96,7 @@ div{
 	to{height:0px;}
 }
 @media (max-width:996px){
-	#openWrapper{
+	#dropWrapper{
 		margin: 0px 56px 20px 56px;
 	}
 }

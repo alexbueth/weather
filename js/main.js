@@ -5,15 +5,18 @@ var w = {
 	api: 'http://acs.acentic.com/CloudServices/rest/', //url to API
 	config: '/weather/resources/weather.config.json',
 	startID: 'GMXX0018', //begins with Cologne 
-	currentIndex: null, 
 	cityHeight: 49,
-
 	json: {},
 	el: {},
 	
 	/*** script starts here by loading the menu content and config file ***/
 	init: function(){
-		w.background = document.getElementById('background');
+		w.el.favicon = document.createElement('link');
+	    w.el.favicon.type = 'image/x-icon';
+	    w.el.favicon.rel = 'shortcut icon';
+	    w.el.favicon.id = 'favicon';
+	    document.getElementsByTagName('head')[0].appendChild(w.el.favicon);
+	    
 		w.getJSON(w.api+'weatherlocations', function(res){
 			w.debug({txt:'JSON: process data'});
 			w.debug(res);
@@ -27,52 +30,52 @@ var w = {
 		});
 	},
 	
-	/*** generate navigation from the main JSON ***/
+	/*** generates base elements and navigation from the main JSON ***/
 	generateCityMenu: function(){
-		var i, x;
-		
+		var i, city, choose;
+		w.el.background  = w.createElement({id:'background'});
+		w.el.branding    = w.createElement({id:'branding'});		
 		w.el.menuWrapper = w.createElement({id:'menuWrapper'});
-		w.el.openWrapper = w.createElement({id:'openWrapper'});
-		w.el.buttonPrev  = w.createElement({parentElement:w.el.menuWrapper,id:'buttonPrev',content:'&laquo;',class:'button',type:'A'});
-		w.el.cities      = w.createElement({parentElement:w.el.menuWrapper,id:'cities'});
-		w.el.buttonNext  = w.createElement({parentElement:w.el.menuWrapper,id:'buttonNext',content:'&raquo;',class:'button',type:'A'});
+		w.el.dropWrapper = w.createElement({id:'dropWrapper'});
+		w.el.buttonPrev  = w.createElement({id:'buttonPrev',parentElement:w.el.menuWrapper,content:'&laquo;',class:'button',type:'A'});
+		w.el.buttonNext  = w.createElement({id:'buttonNext',parentElement:w.el.menuWrapper,content:'&raquo;',class:'button',type:'A'});
+		w.el.cities      = w.createElement({id:'cities',parentElement:w.el.menuWrapper});
 		
 		for(i=0; i<w.locations.length; i++){
 			if(w.locations[i].code===w.startID){ w.currentIndex = i; }
-			x = w.createElement({parentElement:w.el.cities,class:'city'});
-			w.createElement({parentElement:x, class: 'country',content:w.locations[i].country});
-			w.createElement({parentElement:x, class: 'name',content:w.locations[i].name});
-
-			x = w.createElement({parentElement:w.el.openWrapper,class:'choose',type:'a',info:i});
-			w.createElement({parentElement:x, class: 'country',content:w.locations[i].country});
-			w.createElement({parentElement:x, class: 'name',content:w.locations[i].name});
-			x.addEventListener("click", w.chooseCity);
+			city   = w.createElement({parentElement:w.el.cities,class:'city'});
+					 w.createElement({parentElement:city, class: 'country',content:w.locations[i].country});
+					 w.createElement({parentElement:city, class: 'name',content:w.locations[i].name});
+			choose = w.createElement({parentElement:w.el.dropWrapper,class:'choose',type:'a',info:i});
+					 w.createElement({parentElement:choose, class: 'country',content:w.locations[i].country});
+					 w.createElement({parentElement:choose, class: 'name',content:w.locations[i].name});
+			choose.addEventListener("click", w.chooseCity);
 		}
-		w.move();
+		
 		w.el.buttonPrev.addEventListener("click", w.prev);
 		w.el.buttonNext.addEventListener("click", w.next);
-		w.el.cities.addEventListener("click", w.open);
-			
+		w.el.cities.addEventListener("click", w.open);			
 		document.onkeydown = w.checkKey;
+		w.move();
 	},
 	
 	/*** opens drop down menu ***/
 	open: function(){
-		if(w.el.openWrapper.style.display === 'block'){
+		if(w.el.dropWrapper.style.display === 'block'){
 			w.close();
 			return;
 		}
-		w.el.openWrapper.style.display = 'block';
-		w.el.openWrapper.scrollTop = (w.currentIndex * w.cityHeight) + w.currentIndex;
-		w.el.openWrapper.classList.remove('hideMenu');
-		w.el.openWrapper.classList.add('showMenu');
+		w.el.dropWrapper.style.display = 'block';
+		w.el.dropWrapper.scrollTop = (w.currentIndex * w.cityHeight) + w.currentIndex;
+		w.el.dropWrapper.classList.remove('hideMenu');
+		w.el.dropWrapper.classList.add('showMenu');
 	},
 	
 	/*** closes drop down menu ***/
 	close: function(){
-		w.el.openWrapper.classList.remove('showMenu');
-		w.el.openWrapper.classList.add('hideMenu');
-		window.setTimeout(function(){ w.el.openWrapper.style.display = 'none'; }, 200);
+		w.el.dropWrapper.classList.remove('showMenu');
+		w.el.dropWrapper.classList.add('hideMenu');
+		window.setTimeout(function(){ w.el.dropWrapper.style.display = 'none'; }, 200);
 	},
 	
 	/*** sets currentIndex to selected value ***/
@@ -111,10 +114,11 @@ var w = {
 			}
 		}
 		w.el.cities.style.top = (w.currentIndex * w.cityHeight * -1) + 'px';
-		w.background.style.display = 'none';
+		w.el.background.style.display = 'none';
 		imageSearch = new google.search.ImageSearch();
 		imageSearch.setSearchCompleteCallback(this, w.imageSearchComplete, null);
 		imageSearch.execute(w.locations[w.currentIndex].country + " " + w.locations[w.currentIndex].name);
+		document.title = w.locations[w.currentIndex].name;
 		google.search.Search.getBranding('branding');
 		w.getJSON(w.api+'weather/'+w.locations[w.currentIndex].code, function(res){
 			w.displayCityData(res);
@@ -135,15 +139,15 @@ var w = {
 			preload = new Image();
 			preload.src = imageSearch.results[hiresIndex].url;
 			preload.onload = function(){
-				w.background.style.backgroundImage = 'url(' + this.src + ')';
+				w.el.background.style.backgroundImage = 'url(' + this.src + ')';
 				if(navigator.userAgent.indexOf("Safari") > -1){
 					window.setTimeout(function(){
-						w.background.style.display = 'block';	
-						w.background.classList.add('fadein3');
+						w.el.background.style.display = 'block';	
+						w.el.background.classList.add('fadein3');
 					},1000);
 				} else{
-					w.background.style.display = 'block';	
-					w.background.classList.add('fadein3');
+					w.el.background.style.display = 'block';	
+					w.el.background.classList.add('fadein3');
 				}
 			}
 		}
@@ -189,11 +193,13 @@ var w = {
 		var nodata = {day: "&nbsp;", date: "no data available", low: "-", high: "-", code: "na"};
 		switch(selector){
 			case 'data': return data;
-			case 'data.forecast[0]': return data.forecast[0] ? data.forecast[0] : nodata; break;
 			case 'data.forecast[1]': return data.forecast[1] ? data.forecast[1] : nodata; break;
 			case 'data.forecast[2]': return data.forecast[2] ? data.forecast[2] : nodata; break;
 			case 'data.forecast[3]': return data.forecast[3] ? data.forecast[3] : nodata; break;
 			case 'data.forecast[4]': return data.forecast[4] ? data.forecast[4] : nodata; break;
+			case 'data.forecast[0]': 
+				w.el.favicon.href='resources/weathericon/'+data.forecast[0].code+'.png';
+				return data.forecast[0] ? data.forecast[0] : nodata; break;
 			default: return null
 		}
 	},
@@ -222,16 +228,15 @@ var w = {
 
 	/*** creates an HTML element by given data ***/
 	createElement: function(attr){
-		//attr = {parentElement:null,id:null,class:null,style:null,type:null,content:null};
+		/* paramter description attr = 
+		{parentElement:null,id:null,class:null,style:null,type:null,content:null,src:null,info:null}; */
 
-		w.elementCount = (w.elementCount==null) ? 0 : w.elementCount +1;
-		attr.parentElement = (attr.parentElement==null) ? document.body : attr.parentElement;
 		attr.type = (attr.type == null) ? 'DIV' : attr.type;
 		attr.content = (attr.content == null) ? null : attr.content;
+		attr.parentElement = (attr.parentElement == null) ? document.body : attr.parentElement;
 		
 		var el = document.createElement(attr.type);
 		if(attr.id!=null){ el.id = attr.id; }
-
 		if(attr.class != null){ el.className = attr.class; }
 		if(attr.style != null){ el.style.cssText = attr.style; }
 		if(attr.src != null){ el.src = attr.src; }
